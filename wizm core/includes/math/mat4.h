@@ -8,10 +8,10 @@ namespace core {
 	template<typename T>
 	class mat4 {
 	public:
-		typedef vec<T> col_type;
-		typedef vec<T> row_type;
-		typedef mat4<4, 4, T, Q> type;
-		typedef mat4<4, 4, T, Q> transpose_type;
+		typedef vec4<T> col_type;
+		typedef vec4<T> row_type;
+		typedef mat4<T> type;
+		typedef mat4<T> transpose_type;
 		typedef T value_type;
 
 	
@@ -48,5 +48,7 @@ namespace core {
 			X4 const& x4, Y4 const& y4, Z4 const& z4, W4 const& w4);
 
 	};
+
+	
 
 }
