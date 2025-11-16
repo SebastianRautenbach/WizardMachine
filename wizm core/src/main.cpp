@@ -3,6 +3,6 @@
 
 
 int main() {
-	core::vec3<int> ex(0);
-	ex = core::vec3<int>(4);
+	core::math::vec3<int> ex(0);
+	ex = core::math::vec3<int>(4);
 }
