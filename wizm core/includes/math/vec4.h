@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 namespace core {
 
@@ -22,6 +21,8 @@ namespace core {
 				w = v.w;
 				return *this;
 			}
+
+
 			vec4& operator*=(const vec4& v) {
 				x *= v.x;
 				y *= v.y;
@@ -29,6 +30,11 @@ namespace core {
 				w *= v.w;
 				return *this;
 			}
+
+			vec4 operator-() {
+				return vec4(-x, -y, -z, -w);
+			}
+
 			vec4& operator/=(const vec4& v) {
 				x /= v.x;
 				y /= v.y;
