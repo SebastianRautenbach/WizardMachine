@@ -1,12 +1,11 @@
 #pragma once
 #include "vec4.h"
-#include <limits>
 #include <cstddef>
 #include <cassert>
 #include <cstdint>
 
 
-namespace core {
+namespace wizmcore {
 	namespace math{
 	
 		template<typename T>

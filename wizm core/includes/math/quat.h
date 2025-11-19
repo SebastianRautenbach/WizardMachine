@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-namespace core {
+namespace wizmcore {
 	namespace math {
 		
 		

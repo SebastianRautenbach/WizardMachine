@@ -6,11 +6,11 @@
 #include <cstdint>
 
 
-namespace core {
+namespace wizmcore {
 	namespace math {
 
 		template<typename T>
-		class mat3 {
+		class mat2 {
 		private:
 			typedef vec2<T> col_type;
 			typedef uint16_t length_type;
@@ -21,56 +21,50 @@ namespace core {
 
 		public:
 
-			constexpr mat3() = default;
+			constexpr mat2() = default;
 
-			mat3(mat3<T> const& m)
-				: value{ col_type(m[0]), col_type(m[1]), col_type(m[2]) }
+			mat2(mat2<T> const& m)
+				: value{ col_type(m[0]), col_type(m[1]) }
 			{
 			}
 
-			mat3(
-				T const& x0, T const& y0, T const& z0,
-				T const& x1, T const& y1, T const& z1,
-				T const& x2, T const& y2, T const& z2)
+			mat2(
+				T const& x0, T const& y0,
+				T const& x1, T const& y1)
 				: value{
-					col_type(x0, y0, z0),
-					col_type(x1, y1, z1),
-					col_type(x2, y2, z2) }
+					col_type(x0, y0),
+					col_type(x1, y1)}
 			{
 			}
 
-			mat3(T s)
-				: value{ col_type(s, 0, 0), col_type(0, s, 0), col_type(0, 0, s) }
+			mat2(T s)
+				: value{ col_type(s, 0), col_type(0, s)}
 			{
 			}
 
-			mat3(
+			mat2(
 				col_type const& v0,
-				col_type const& v1,
-				col_type const& v2)
-				: value{ col_type(v0), col_type(v1), col_type(v2) }
+				col_type const& v1)
+				: value{ col_type(v0), col_type(v1)}
 			{
 			}
 
 			template<
-				typename X1, typename Y1, typename Z1,
-				typename X2, typename Y2, typename Z2,
-				typename X3, typename Y3, typename Z3>
-			constexpr mat3(
-				X1 const& x1, Y1 const& y1, Z1 const& z1,
-				X2 const& x2, Y2 const& y2, Z2 const& z2,
-				X3 const& x3, Y3 const& y3, Z3 const& z3)
-				: value{ col_type(x1, y1, z1), col_type(x2, y2, z2), col_type(x3, y3, z3) }
+				typename X1, typename Y1,
+				typename X2, typename Y2>
+			constexpr mat2(
+				X1 const& x1, Y1 const& y1,
+				X2 const& x2, Y2 const& y2)
+				: value{ col_type(x1, y1), col_type(x2, y2)}
 			{
 			}
 
 
 			template<typename U>
-			constexpr mat3<T>& operator=(mat3<U> const& m)
+			constexpr mat2<T>& operator=(mat2<U> const& m)
 			{
 				this->value[0] = m[0];
 				this->value[1] = m[1];
-				this->value[2] = m[2];
 				return *this;
 			}
 
@@ -84,24 +78,24 @@ namespace core {
 				return this->value[i];
 			}
 
-			constexpr mat3 operator-() const {
-				return mat3(
-					-value[0], -value[1], -value[2]
+			constexpr mat2 operator-() const {
+				return mat2<T>(
+					-value[0], -value[1]
 				);
 			}
 
-			constexpr mat3 operator+(const mat3& m) {
+			constexpr mat2 operator+(const mat2& m) {
 
 			}
-			constexpr mat3 operator-(const mat3& m) {
+			constexpr mat2 operator-(const mat2& m) {
 
 			}
 
 
-			constexpr mat3 operator*(T scaler) {
+			constexpr mat2 operator*(T scaler) {
 
 			}
-			constexpr mat3 operator/(T scaler) {
+			constexpr mat2 operator/(T scaler) {
 
 			}
 
@@ -109,7 +103,7 @@ namespace core {
 			constexpr col_type operator*(col_type const& v) const {
 
 			}
-			constexpr mat3 operator*(mat3 const& m) const {
+			constexpr mat2 operator*(mat2 const& m) const {
 
 			}
 

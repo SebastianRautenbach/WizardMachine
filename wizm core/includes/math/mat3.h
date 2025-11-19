@@ -6,7 +6,7 @@
 #include <cstdint>
 
 
-namespace core {
+namespace wizmcore {
 	namespace math {
 
 		template<typename T>
@@ -24,7 +24,7 @@ namespace core {
 			constexpr mat3() = default;
 
 			mat3(mat3<T> const& m)
-				: value{ col_type(m[0]), col_type(m[1]), col_type(m[2]), col_type(m[3]) }
+				: value{ col_type(m[0]), col_type(m[1]), col_type(m[2])}
 			{
 			}
 

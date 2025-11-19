@@ -1,12 +1,19 @@
 #pragma once
+#include <cassert>
+#include <stdint.h>
 
-namespace core {
+namespace wizmcore {
 
 	namespace math {
 		template<typename T>
 		class vec2 {
 		public:
 			T x, y;
+
+
+		public:
+			typedef uint16_t length_type;
+			static constexpr length_type length() { return 2; }
 
 		public:
 
@@ -51,7 +58,17 @@ namespace core {
 			vec2 operator*(const vec2& v) {
 				return vec2(x * v.x, y * v.y);
 			}
-
+			vec2 operator*(const T s) {
+				return vec2(x * s, y * s);
+			}
+			constexpr T& operator[](length_type i) {
+				assert(i >= 0 && i < this->length());
+				return (&x)[i];
+			}
+			constexpr T const& operator[](length_type i) const {
+				assert(i >= 0 && i < this->length());
+				return (&x)[i];
+			}
 		};
 	}
 }
