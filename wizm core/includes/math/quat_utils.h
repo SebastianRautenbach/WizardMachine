@@ -2,6 +2,7 @@
 #include "quat.h"
 #include "mat4.h"
 #include "scalar_constants.h"
+#include "func_vec_relational.h"
 
 namespace wizmcore {
 	namespace math {
@@ -20,17 +21,33 @@ namespace wizmcore {
 			T const x = q.w * q.w - q.x * q.x - q.y * q.y + q.z * q.z;
 
 			if (all(equal(vec2<T>(x, y), vec2<T>(0), epsilon<T>()))) //avoid atan2(0,0) - handle singularity - Matiis
-				return static_cast<T>(static_cast<T>(2) * atan(q.x, q.w));
+				return static_cast<T>(static_cast<T>(2) * std::atan2(q.x, q.w));
 
-			return static_cast<T>(atan(y, x));
+			return static_cast<T>(std::atan2(y, x));
+		}
+
+
+		template<typename T>
+		inline T yaw(quat<T> const& q)
+		{
+			return asin(clamp(static_cast<T>(-2) * (q.x * q.z - q.w * q.y), static_cast<T>(-1), static_cast<T>(1)));
 		}
 
 
 
+		template<typename T>
+		inline T roll(quat<T> const& q)
+		{
+			T const y = static_cast<T>(2) * (q.x * q.y + q.w * q.z);
+			T const x = q.w * q.w + q.x * q.x - q.y * q.y - q.z * q.z;
 
+			auto naai = equal(vec2<T>(x, y), vec2<T>(0), epsilon<T>());
 
+			if (all(equal(vec2<T>(x, y), vec2<T>(0), epsilon<T>()))) //avoid atan2(0,0) - handle singularity - Matiis
+				return static_cast<T>(0);
 
-
+			return static_cast<T>(atan2(y, x));
+		}
 
 
 

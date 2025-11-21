@@ -1,0 +1,16 @@
+#pragma once
+
+namespace wizmplatform
+{
+	class core_timer {
+
+	public:
+
+		void update_delta_time();
+		float get_delta_time();
+
+	private:
+		float deltaTime = 0.0f;
+		float lastFrame = 0.0f;
+	};
+}

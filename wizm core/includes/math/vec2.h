@@ -49,8 +49,16 @@ namespace wizmcore {
 			vec2 operator+(const vec2& v) {
 				return vec2(x + v.x, y + v.y);
 			}
-			vec2 operator-(const vec2& v) {
-				return vec2(x - v.x, y - v.y);
+			constexpr vec2<T> operator-() {
+				return vec2<T>(
+					-x,
+					-y);
+			}
+
+			constexpr vec2<T> operator-(const vec2<T>& v) const {
+				return vec2<T>(
+					x - v.x,
+					y - v.y);
 			}
 			vec2 operator/(const vec2& v) {
 				return vec2(x / v.x, y / v.y);

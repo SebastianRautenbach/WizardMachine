@@ -11,10 +11,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 
 project "WizmCore"
-    kind "ConsoleApp"
+    kind "None"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
+    location "wizm core"
+
 
     warnings "Extra"    
 
@@ -41,6 +43,110 @@ project "WizmCore"
 
     links 
     {
+    }
+
+    filter "system.windows"
+        systemversion "latest"
+
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        staticruntime "On"
+        symbols "On"
+
+    filter "configurations:Release"
+        runtime "Release"
+        staticruntime "On"
+        optimize "On"
+
+
+project "WizmRender"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+    location "wizm render"
+
+    warnings "Extra"    
+
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "wizm render/src/**.cpp",
+        "wizm render/src/**.c",
+        "wizm render/includes/**.h",
+        "wizm render/includes/**.hpp"
+    }
+
+    includedirs
+    {
+        "wizm render/includes",
+    }
+
+    libdirs 
+    {
+        "wizm render/lib"
+    }
+
+    links 
+    {
+    }
+
+    filter "system.windows"
+        systemversion "latest"
+
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        staticruntime "On"
+        symbols "On"
+
+    filter "configurations:Release"
+        runtime "Release"
+        staticruntime "On"
+        optimize "On"
+
+
+
+
+
+project "WizmPlatform"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+    location "wizm platform"
+
+
+    warnings "Extra"    
+
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "wizm platform/src/**.cpp",
+        "wizm platform/src/**.c",
+        "wizm platform/includes/**.h",
+        "wizm platform/includes/**.hpp"
+    }
+
+    includedirs
+    {
+        "wizm platform/includes",
+        "wizm platform/includes/thirdparty",
+    }
+
+    libdirs 
+    {
+        "wizm platform/lib"
+    }
+
+    links 
+    {
+        "glfw3dll",
     }
 
     filter "system.windows"
