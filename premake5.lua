@@ -8,10 +8,11 @@ workspace "WizardMachine"
     }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+CoreInclude = "wizm core/includes"
 
 
 project "WizmCore"
-    kind "None"
+    kind "StaticLib"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
@@ -58,6 +59,73 @@ project "WizmCore"
         runtime "Release"
         staticruntime "On"
         optimize "On"
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+project "WizmPlatform"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+    location "wizm platform"
+
+
+    warnings "Extra"    
+
+
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "wizm platform/src/**.cpp",
+        "wizm platform/src/**.c",
+        "wizm platform/includes/**.h",
+        "wizm platform/includes/**.hpp"
+    }
+
+    includedirs
+    {
+        "wizm platform/includes",
+        "wizm platform/includes/thirdparty",
+        CoreInclude
+
+    }
+
+    libdirs 
+    {
+        "wizm platform/lib"
+    }
+
+    links 
+    {
+        "glfw3dll",
+        "WizmCore"
+    }
+
+    filter "system.windows"
+        systemversion "latest"
+
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        staticruntime "On"
+        symbols "On"
+
+    filter "configurations:Release"
+        runtime "Release"
+        staticruntime "On"
+        optimize "On"
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 project "WizmRender"
@@ -112,53 +180,3 @@ project "WizmRender"
 
 
 
-project "WizmPlatform"
-    kind "ConsoleApp"
-    language "C++"
-    cppdialect "C++17"
-    staticruntime "on"
-    location "wizm platform"
-
-
-    warnings "Extra"    
-
-
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-
-    files
-    {
-        "wizm platform/src/**.cpp",
-        "wizm platform/src/**.c",
-        "wizm platform/includes/**.h",
-        "wizm platform/includes/**.hpp"
-    }
-
-    includedirs
-    {
-        "wizm platform/includes",
-        "wizm platform/includes/thirdparty",
-    }
-
-    libdirs 
-    {
-        "wizm platform/lib"
-    }
-
-    links 
-    {
-        "glfw3dll",
-    }
-
-    filter "system.windows"
-        systemversion "latest"
-
-
-    filter "configurations:Debug"
-        runtime "Debug"
-        staticruntime "On"
-        symbols "On"
-
-    filter "configurations:Release"
-        runtime "Release"
-        staticruntime "On"
-        optimize "On"
