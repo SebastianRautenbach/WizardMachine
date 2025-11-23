@@ -1,39 +1,21 @@
-
-#include "wwindow.h"
-#include "timer.h"
-
-
-
+#include "wplatform.h"
 
 namespace wizmplatform {
-	class wplatform {
-
-	public:
-		wplatform();
-		~wplatform();
-
-	private:
-		wizmplatform::wwindow m_window;
-		wizmplatform::core_timer m_timer;
-
-	};
-}
-
-
-
-
-
-int main() {
-
-	wizmplatform::wwindow example("", 900, 900);
-	wizmplatform::core_timer timer;
-
-
-	while (true)
+	wplatform::wplatform(wizmplatform::wwindow window)
+		: m_window(window)
 	{
-		timer.update_delta_time();
-		example.pre_update(timer.get_delta_time());
-		example.update(timer.get_delta_time());
-		example.post_update(timer.get_delta_time());
+	}
+	wplatform::~wplatform()
+	{
+	}
+	void wplatform::pre_update(float delta_time)
+	{
+		glfwPollEvents();
+	}
+	void wplatform::update(float delta_time)
+	{
+	}
+	void wplatform::post_update(float delta_time)
+	{
 	}
 }

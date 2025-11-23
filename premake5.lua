@@ -9,6 +9,7 @@ workspace "WizardMachine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 CoreInclude = "wizm core/includes"
+PlatformInclude = "wizm platform/includes"
 
 
 project "WizmCore"
@@ -68,7 +69,7 @@ project "WizmCore"
 
 
 project "WizmPlatform"
-    kind "ConsoleApp"
+    kind "StaticLib"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
@@ -145,12 +146,16 @@ project "WizmRender"
         "wizm render/src/**.cpp",
         "wizm render/src/**.c",
         "wizm render/includes/**.h",
-        "wizm render/includes/**.hpp"
+        "wizm render/includes/**.hpp",
+        "wizm render/includes/thirdparty/glad.c",
     }
 
     includedirs
     {
         "wizm render/includes",
+        "wizm render/includes/thirdparty",
+        CoreInclude,
+        PlatformInclude,
     }
 
     libdirs 
@@ -160,6 +165,10 @@ project "WizmRender"
 
     links 
     {
+        "WizmCore",
+        "WizmPlatform",
+        "opengl32",
+
     }
 
     filter "system.windows"

@@ -1,23 +1,6 @@
 #include "wwindow.h"
 #include "core_input.h"
 
-void wizmplatform::wwindow::pre_update(float delta_time)
-{
-}
-
-void wizmplatform::wwindow::update(float delta_time)
-{
-	if (m_input->has_key_been_pressed(GLFW_KEY_LEFT_ALT)) {
-
-	}
-}
-
-void wizmplatform::wwindow::post_update(float delta_time)
-{
-	glfwPollEvents();
-	glfwSwapBuffers(m_window);
-}
-
 wizmplatform::wwindow::wwindow(const char* name, double w, double h)
 	:m_screen_width(w), m_screen_height(h)
 {
@@ -35,18 +18,14 @@ wizmplatform::wwindow::wwindow(const char* name, double w, double h)
 	}
 
 
+	//glfwSetWindowUserPointer(glfwWindow, this);
+	//glfwSetWindowSizeCallback(glfwWindow, WindowResizeCallback);
+
+
 	glfwMakeContextCurrent(m_window);
-
-
-	m_input = std::make_shared<core_input>(m_window, m_screen_width, m_screen_height);;
 }
 
 wizmplatform::wwindow::~wwindow()
 {
 	glfwTerminate();
-}
-
-void wizmplatform::wwindow::set_window_size(double w, double h)
-{
-
 }
