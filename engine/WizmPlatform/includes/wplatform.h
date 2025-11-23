@@ -7,7 +7,7 @@ namespace wizmplatform {
 	class wplatform : public wizmcore::system::updateable {
 
 	public:
-		wplatform(wizmplatform::wwindow window);
+		wplatform(wizmplatform::wwindow* window);
 		~wplatform();
 
 
@@ -16,6 +16,6 @@ namespace wizmplatform {
 		void post_update(float delta_time) override;
 
 	private:
-		wizmplatform::wwindow m_window;
+		wizmplatform::wwindow* m_window;
 	};
 }

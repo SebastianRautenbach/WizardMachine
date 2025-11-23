@@ -1,191 +1,166 @@
 workspace "WizardMachine"
     architecture "x64"
+    startproject "WizmRender"
 
-    configurations
-    {
-        "Debug",
-        "Release"
-    }
+    configurations { "Debug", "Release" }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-CoreInclude = "wizm core/includes"
-PlatformInclude = "wizm platform/includes"
 
+-------------------------------------------------------
+-- Global Include and Library Directories
+-------------------------------------------------------
 
-project "WizmCore"
-    kind "StaticLib"
-    language "C++"
-    cppdialect "C++17"
-    staticruntime "on"
-    location "wizm core"
+IncludeDir = {}
+IncludeDir["Core"]     = "engine/WizmCore/includes"
+IncludeDir["Platform"] = "engine/WizmPlatform/includes"
+IncludeDir["Render"]   = "engine/WizmRender/includes"
 
+IncludeDir["GLFW"]     = "vendor/glfw/include"
+IncludeDir["GLAD"]     = "vendor/glad/include"
+IncludeDir["KHR"]      = "vendor/KHR/include"
 
-    warnings "Extra"    
+LibDir = {}
+LibDir["Core"]         = "engine/WizmCore/lib"
+LibDir["Platform"]     = "engine/WizmPlatform/lib"
+LibDir["GLFW"]         = "vendor/glfw/lib"
 
+BinDir = {}
+BinDir["GLFW"]         = "vendor/glfw/bin"
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+-------------------------------------------------------
+-- Module Creation Helper
+-------------------------------------------------------
 
-    files
-    {
-        "wizm core/src/**.cpp",
-        "wizm core/src/**.c",
-        "wizm core/includes/**.h",
-        "wizm core/includes/**.hpp"
-    }
+function CreateModule(name, kindType, path)
+    project(name)
+        kind(kindType)
+        language "C++"
+        cppdialect "C++17"
+        staticruntime "on"
 
-    includedirs
-    {
-        "wizm core/includes",
-    }
+        location(path)
+        targetdir("bin/" .. outputdir .. "/%{prj.name}")
+        objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    libdirs 
-    {
-        "wizm core/lib"
-    }
+        files {
+            path .. "/src/**.cpp",
+            path .. "/src/**.c",
+            path .. "/includes/**.h",
+            path .. "/includes/**.hpp"
+        }
 
-    links 
-    {
-    }
+        includedirs {
+            path .. "/includes",
+        }
 
-    filter "system.windows"
-        systemversion "latest"
+        filter "system:windows"
+            systemversion "latest"
 
+        filter "configurations:Debug"
+            runtime "Debug"
+            symbols "On"
 
-    filter "configurations:Debug"
-        runtime "Debug"
-        staticruntime "On"
-        symbols "On"
+        filter "configurations:Release"
+            runtime "Release"
+            optimize "On"
 
-    filter "configurations:Release"
-        runtime "Release"
-        staticruntime "On"
-        optimize "On"
+        filter {}
+end
 
+-------------------------------------------------------
+-- WIZM CORE MODULE
+-------------------------------------------------------
 
+CreateModule("WizmCore", "StaticLib", "engine/WizmCore")
 
+includedirs {
+    IncludeDir["Core"]
+}
 
-------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------
+libdirs {
+    LibDir["Core"]
+}
 
+-------------------------------------------------------
+-- WIZM PLATFORM MODULE
+-------------------------------------------------------
 
-project "WizmPlatform"
-    kind "StaticLib"
-    language "C++"
-    cppdialect "C++17"
-    staticruntime "on"
-    location "wizm platform"
+CreateModule("WizmPlatform", "StaticLib", "engine/WizmPlatform")
 
+includedirs {
+    IncludeDir["Platform"],
+    IncludeDir["Core"],
+    IncludeDir["GLFW"]
+}
 
-    warnings "Extra"    
+libdirs {
+    LibDir["Platform"],
+    LibDir["GLFW"]
+}
 
+links {
+    "WizmCore",
+    "glfw3dll"
+}
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-
-    files
-    {
-        "wizm platform/src/**.cpp",
-        "wizm platform/src/**.c",
-        "wizm platform/includes/**.h",
-        "wizm platform/includes/**.hpp"
-    }
-
-    includedirs
-    {
-        "wizm platform/includes",
-        "wizm platform/includes/thirdparty",
-        CoreInclude
-
-    }
-
-    libdirs 
-    {
-        "wizm platform/lib"
-    }
-
-    links 
-    {
-        "glfw3dll",
-        "WizmCore"
-    }
-
-    filter "system.windows"
-        systemversion "latest"
-
-
-    filter "configurations:Debug"
-        runtime "Debug"
-        staticruntime "On"
-        symbols "On"
-
-    filter "configurations:Release"
-        runtime "Release"
-        staticruntime "On"
-        optimize "On"
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------
-
-
+-------------------------------------------------------
+-- WIZM RENDER (Executable)
+-------------------------------------------------------
 
 project "WizmRender"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
-    location "wizm render"
 
-    warnings "Extra"    
+    location "engine/WizmRender"
 
+    targetdir("bin/" .. outputdir .. "/%{prj.name}")
+    objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-
-    files
-    {
-        "wizm render/src/**.cpp",
-        "wizm render/src/**.c",
-        "wizm render/includes/**.h",
-        "wizm render/includes/**.hpp",
-        "wizm render/includes/thirdparty/glad.c",
+    files {
+        "engine/WizmRender/src/**.cpp",
+        "engine/WizmRender/includes/**.h",
+        "engine/WizmRender/includes/**.hpp",
+        "vendor/glad/src/glad.c"
     }
 
-    includedirs
-    {
-        "wizm render/includes",
-        "wizm render/includes/thirdparty",
-        CoreInclude,
-        PlatformInclude,
+    includedirs {
+        IncludeDir["Render"],
+        IncludeDir["Core"],
+        IncludeDir["Platform"],
+        IncludeDir["GLFW"],
+        IncludeDir["GLAD"],
+        IncludeDir["KHR"],
     }
 
-    libdirs 
-    {
-        "wizm render/lib"
+    libdirs { 
+        LibDir["GLFW"]
     }
 
-    links 
-    {
+    links {
         "WizmCore",
         "WizmPlatform",
-        "opengl32",
-
+        "opengl32"
     }
 
-    filter "system.windows"
-        systemversion "latest"
+--    postbuildcommands {
+--        "{COPYFILE} /vendor/glfw/bin/glfw3.dll ../../../bin/Debug-windows-x86_64/WizmRender"
+--    }
 
+
+    filter "system:windows"
+        systemversion "latest"
 
     filter "configurations:Debug"
         runtime "Debug"
-        staticruntime "On"
         symbols "On"
 
     filter "configurations:Release"
         runtime "Release"
-        staticruntime "On"
         optimize "On"
 
 
 
-
+--ok, err = os.copyfile("/vendor/glfw/bin/glfw3.dll", "%{cfg.targetdir")
 

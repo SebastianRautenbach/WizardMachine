@@ -1,7 +1,8 @@
 #include "wplatform.h"
+#include <glfw3.h>
 
 namespace wizmplatform {
-	wplatform::wplatform(wizmplatform::wwindow window)
+	wplatform::wplatform(wizmplatform::wwindow* window)
 		: m_window(window)
 	{
 	}

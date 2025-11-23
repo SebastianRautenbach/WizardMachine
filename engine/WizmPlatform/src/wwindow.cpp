@@ -1,5 +1,29 @@
 #include "wwindow.h"
 #include "core_input.h"
+#include <glfw3.h>
+#include "definitions/core_definitions.h"
+
+
+
+int wizmplatform::wwindow::GetWidth() const
+{
+	int w, h; glfwGetWindowSize((pwizm_window)m_window, &w, &h); return w;
+}
+
+int wizmplatform::wwindow::GetHeight() const
+{
+	int w, h; glfwGetWindowSize((pwizm_window)m_window, &w, &h); return h;
+}
+
+bool wizmplatform::wwindow::ShouldClose() const
+{
+	return glfwWindowShouldClose((pwizm_window)m_window);
+}
+
+void* wizmplatform::wwindow::GetNativeHandle()
+{
+	return (void*)m_window;
+}
 
 wizmplatform::wwindow::wwindow(const char* name, double w, double h)
 	:m_screen_width(w), m_screen_height(h)
@@ -22,7 +46,7 @@ wizmplatform::wwindow::wwindow(const char* name, double w, double h)
 	//glfwSetWindowSizeCallback(glfwWindow, WindowResizeCallback);
 
 
-	glfwMakeContextCurrent(m_window);
+	glfwMakeContextCurrent((pwizm_window)m_window);
 }
 
 wizmplatform::wwindow::~wwindow()

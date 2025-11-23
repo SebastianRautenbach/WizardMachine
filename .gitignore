@@ -13,6 +13,7 @@ obj/
 /obj
 /out
 /bin
+/bin-int
 /.vs
 /WizardMachine/out
 /WizardMachine/obj
