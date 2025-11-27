@@ -60,10 +60,11 @@ namespace wizmcore {
 				w -= v.w;
 				return *this;
 			}
-			constexpr vec4 operator+(const vec4& v) {
+			constexpr vec4 operator+(const vec4& v) const {
 				return vec4(x + v.x, y + v.y, z + v.z, w + v.w);
 			}
 			
+
 
 			constexpr vec4<T> operator-() {
 				return vec4<T>(

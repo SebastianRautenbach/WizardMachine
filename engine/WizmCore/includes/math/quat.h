@@ -1,7 +1,7 @@
 #pragma once
 #include "vec3.h"
 #include <cmath>
-
+#include "func_trig.h"
 
 namespace wizmcore {
 	namespace math {
@@ -78,6 +78,18 @@ namespace wizmcore {
 			constexpr quat(T v) 
 				: x(v), y(v), z(v), w(v)
 			{}
+
+			constexpr quat(vec3<T> eulerAngle)
+			{
+			
+				vec3<T> c = cos(eulerAngle * T(0.5));
+				vec3<T> s = sin(eulerAngle * T(0.5));
+
+				this->w = c.x * c.y * c.z + s.x * s.y * s.z;
+				this->x = s.x * c.y * c.z - c.x * s.y * s.z;
+				this->y = c.x * s.y * c.z + s.x * c.y * s.z;
+				this->z = c.x * c.y * s.z - s.x * s.y * c.z;
+			}
 
 			constexpr quat(T v0, T v1, T v2, T v3) 
 				: x(v0), y(v1), z(v2), w(v3)

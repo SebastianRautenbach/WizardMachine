@@ -1,4 +1,4 @@
-#include "gl core/vertex_buffer.h"
+#include "core/gl/vertex_buffer.h"
 #include "glad.h"
 
 

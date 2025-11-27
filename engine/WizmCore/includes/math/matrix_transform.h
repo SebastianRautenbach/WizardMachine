@@ -18,6 +18,26 @@ namespace wizmcore {
 			Result[3][2] = -(static_cast<T>(2) * zFar * zNear) / (zFar - zNear);
 			return Result;
 		}
+
+		template<typename T>
+		inline constexpr mat4<T> translate(mat4<T> const& m, vec3<T> const& v)
+		{
+			mat4<T> Result(m);
+			Result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
+			return Result;
+		}
+
+
+		template<typename T>
+		inline mat4<T> scale(mat4<T> const& m, vec3<T> const& v)
+		{
+			mat4<T> Result;
+			Result[0] = m[0] * v[0];
+			Result[1] = m[1] * v[1];
+			Result[2] = m[2] * v[2];
+			Result[3] = m[3];
+			return Result;
+		}
 		
 		
 		// right hand
@@ -44,6 +64,7 @@ namespace wizmcore {
 			Result[3][2] = dot(f, eye);
 			return Result;
 		}
+
 
 
 	}

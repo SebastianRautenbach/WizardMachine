@@ -11,7 +11,8 @@ namespace wizmcore {
 		template<typename T>
 		class mat4 {
 		private:
-			typedef vec4<T> col_type;	
+			typedef vec4<T> col_type;
+			typedef vec4<T> row_type;
 			typedef uint16_t length_type;
 			static constexpr length_type length() { return 4; }
 
@@ -50,6 +51,28 @@ namespace wizmcore {
 				col_type const& v3) 
 				: value{ col_type(v0), col_type(v1), col_type(v2), col_type(v3) }
 			{}
+
+
+			
+			inline constexpr col_type operator*
+				(
+					row_type const& v
+					)
+			{
+				col_type const Mov0(v[0]);
+				col_type const Mov1(v[1]);
+				col_type const Mul0 = value[0] * Mov0;
+				col_type const Mul1 = value[1] * Mov1;
+				col_type const Add0 = Mul0 + Mul1;
+				col_type const Mov2(v[2]);
+				col_type const Mov3(v[3]);
+				col_type const Mul2 = value[2] * Mov2;
+				col_type const Mul3 = value[3] * Mov3;
+				col_type const Add1 = Mul2 + Mul3;
+				col_type const Add2 = Add0 + Add1;
+				return Add2;
+			}
+
 
 			template<
 				typename X1, typename Y1, typename Z1, typename W1,
@@ -91,28 +114,26 @@ namespace wizmcore {
 				);
 			}
 			
-			constexpr mat4 operator+(const mat4& m) {
-			
-			}
-			constexpr mat4 operator-(const mat4& m) {
-			
-			}
 			
 			
-			constexpr mat4 operator*(T scaler) {
+				
+					
+					
+					
 			
-			}
-			constexpr mat4 operator/(T scaler) {
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			
-			}
-
-
-			constexpr col_type operator*(col_type const& v) const {
-			
-			}
-			constexpr mat4 operator*(mat4 const& m) const {
-			
-			}
 
 		};	
 		
