@@ -1,96 +1,112 @@
 #pragma once
-#include <cassert>
-#include <stdint.h>
-
+#include "vec.h"
 
 
 namespace wizmcore {
-
 	namespace math {
+
 		template<typename T>
-		class vec3 {
+		class vec<T, 3> {
+
+		private:
+			const static uint16_t length = 3;
+
+
 		public:
 			T x, y, z;
 
 		public:
-			typedef uint16_t length_type;
-			static constexpr length_type length() { return 3; }
-
-		public:
-
-			vec3() : x(0), y(0), z(0) {}
-			vec3(T v) : x(v), y(v), z(v) {}
-			vec3(T v1, T v2, T v3) : x(v1), y(v2), z(v3) {}
-
-			constexpr vec3<T>& operator=(const vec3& v) {
-				x = v.x;
-				y = v.y;
-				z = v.z;
-				return *this;
+			vec<T, 3>(T _x) {
+				x = y = z = _x;
 			}
-			constexpr vec3<T>& operator*=(const vec3& v) {
-				x *= v.x;
-				y *= v.y;
-				z *= v.z;
-				return *this;
-			}
-			constexpr vec3<T>& operator/=(const vec3& v) {
-				x /= v.x;
-				y /= v.y;
-				z /= v.z;
-				return *this;
-			}
-			constexpr vec3<T>& operator+=(const vec3<T>& v) {
-				x += v.x;
-				y += v.y;
-				z += v.z;
-				return *this;
-			}
-			constexpr vec3<T>& operator-=(const vec3<T>& v) {
-				x -= v.x;
-				y -= v.y;
-				z -= v.z;
-				return *this;
-			}
-			constexpr vec3<T> operator+(const vec3<T>& v) {
-				return vec3<T>(x + v.x, y + v.y, z + v.z);
+			vec<T, 3>(T _x, T _y, T _z) {
+				x = _x;
+				y = _y;
+				z = _z;
 			}
 
-			constexpr vec3<T> operator-() {
-				return vec3<T>(
-					-x,
-					-y,
-					-z);
+			constexpr bool operator==(vec<T, 3> const& v) {
+				return (v.x == x &&
+						v.y == y &&
+						v.z == z
+					);
 			}
+			
 
-			constexpr vec3<T> operator-(const vec3<T>& v) const {
-				return vec3<T>(
-					x-v.x,
-					y-v.y,
-					z-v.z);
+			constexpr bool operator!=(vec<T, 3> const& v) {
+				return !(v.x == x &&
+					v.y == y &&
+					v.z == z
+					);
 			}
 
 
-			constexpr vec3<T> operator/(const vec3& v) {
-				return vec3<T>(x / v.x, y / v.y, z / v.z);
-			}
-			constexpr vec3<T> operator*(const vec3<T>& v) {
-				return vec3<T>(x * v.x, y * v.y, z * v.z);
-			}
-			constexpr vec3<T> operator*(const T s) {
-				return vec3<T>(x * s, y * s, z * s);
+			constexpr void operator+=(vec<T, 3> const& v) {
+				this->x += v.x;
+				this->y += v.y;
+				this->z += v.z;
 			}
 
-			constexpr T& operator[](length_type i) {
-				assert(i >= 0 && i < this->length());
-				return (&x)[i];
+			constexpr void operator-=(vec<T, 3> const& v) {
+				this->x -= v.x;
+				this->y -= v.y;
+				this->z -= v.z;
 			}
-			constexpr T const& operator[](length_type i) const {
-				assert(i >= 0 && i < this->length());
+
+			constexpr void operator*=(vec<T, 3> const& v) {
+				this->x *= v.x;
+				this->y *= v.y;
+				this->z *= v.z;
+			}
+
+
+			constexpr void operator/=(vec<T, 3> const& v) {
+				this->x /= v.x;
+				this->y /= v.y;
+				this->z /= v.z;
+			}
+
+
+			constexpr vec<T, 3> operator+(vec<T, 3> const& v) {
+				return vec<T, 3>(this->x + v.x, this->y + v.y, this->z + v.z);
+			}
+
+			constexpr vec<T, 3> operator-(vec<T, 3> const& v) {
+				return vec<T, 3>(this->x - v.x, this->y - v.y, this->z - v.z);
+			}
+			constexpr vec<T, 3> operator-(vec<T, 3> const& v) const {
+				return vec<T, 3>(this->x - v.x, this->y - v.y, this->z - v.z);
+			}
+
+
+			constexpr vec<T, 3> operator/(vec<T, 3> const& v) {
+				return vec<T, 3>(this->x / v.x, this->y / v.y, this->z / v.z);
+			}
+
+			constexpr vec<T, 3> operator*(vec<T, 3> const& v) {
+				return vec<T, 3>(this->x * v.x, this->y * v.y, this->z * v.z);
+			}
+
+			constexpr vec<T, 3> operator*(vec<T, 3> const& v) const {
+				return vec<T, 3>(this->x * v.x, this->y * v.y, this->z * v.z);
+			}
+
+			constexpr vec<T, 3> operator*(T const s) {
+				return vec<T, 3>(this->x * s, this->y * s, this->z * s);
+			}
+
+			constexpr vec<T, 3> operator*(T const s) const {
+				return vec<T, 3>(this->x * s, this->y * s, this->z * s);
+			}
+
+			constexpr vec<T, 3> operator/(T const s) {
+				return vec<T, 3>(this->x / s, this->y / s, this->z / s);
+			}
+
+			constexpr T operator[](uint16_t i) {
+				if (i > length) {/* ERROR*/ throw "cant do this shit"; }
 				return (&x)[i];
 			}
 		};
 	}
-
-	
 }

@@ -1,81 +1,89 @@
 #pragma once
-#include <cassert>
-#include <stdint.h>
+#include <vec.h>
+
 
 namespace wizmcore {
-
 	namespace math {
+
 		template<typename T>
-		class vec2 {
+		class vec<T, 2> {
+		private:
+			const static uint16_t length = 2;
+		
 		public:
 			T x, y;
 
-
 		public:
-			typedef uint16_t length_type;
-			static constexpr length_type length() { return 2; }
-
-		public:
-
-			vec2() : x(0), y(0) {}
-			vec2(T v) : x(v), y(v) {}
-			vec2(T v1, T v2) : x(v1), y(v2) {}
-
-			vec2& operator=(const vec2& v) {
-				x = v.x;
-				y = v.y;
-				return *this;
+			vec<T, 2>(T _x) {
+				x = y = _x;
 			}
-			vec2& operator*=(const vec2& v) {
-				x *= v.x;
-				y *= v.y;
-				return *this;
-			}
-			vec2& operator/=(const vec2& v) {
-				x /= v.x;
-				y /= v.y;
-				return *this;
-			}
-			vec2& operator+=(const vec2& v) {
-				x += v.x;
-				y += v.y;
-				return *this;
-			}
-			vec2& operator-=(const vec2& v) {
-				x -= v.x;
-				y -= v.y;
-				return *this;
-			}
-			vec2 operator+(const vec2& v) {
-				return vec2(x + v.x, y + v.y);
-			}
-			constexpr vec2<T> operator-() {
-				return vec2<T>(
-					-x,
-					-y);
+			vec<T, 2>(T _x, T _y) {
+				x = _x;
+				y = _y;
 			}
 
-			constexpr vec2<T> operator-(const vec2<T>& v) const {
-				return vec2<T>(
-					x - v.x,
-					y - v.y);
+			constexpr bool operator==(vec<T, 2> const& v) {
+				return (v.x == x &&
+					v.y == y);
 			}
-			vec2 operator/(const vec2& v) {
-				return vec2(x / v.x, y / v.y);
+
+
+			constexpr bool operator!=(vec<T, 2> const& v) {
+				return !(v.x == x && v.y == y					
+					);
 			}
-			vec2 operator*(const vec2& v) {
-				return vec2(x * v.x, y * v.y);
+
+
+			constexpr void operator+=(vec<T, 2> const& v) {
+				this->x += v.x;
+				this->y += v.y;				
 			}
-			vec2 operator*(const T s) {
-				return vec2(x * s, y * s);
+
+			constexpr void operator-=(vec<T, 2> const& v) {
+				this->x -= v.x;
+				this->y -= v.y;
 			}
-			constexpr T& operator[](length_type i) {
-				assert(i >= 0 && i < this->length());
+
+			constexpr void operator*=(vec<T, 2> const& v) {
+				this->x *= v.x;
+				this->y *= v.y;
+			}
+
+
+			constexpr void operator/=(vec<T, 2> const& v) {
+				this->x /= v.x;
+				this->y /= v.y;
+			}
+
+
+			constexpr T operator[](uint16_t i) {
+				if (i>length) {/* ERROR*/ throw "cant do this shit"; }
 				return (&x)[i];
 			}
-			constexpr T const& operator[](length_type i) const {
-				assert(i >= 0 && i < this->length());
-				return (&x)[i];
+
+			constexpr vec<T, 2> operator+(vec<T, 2> const& v) {
+				return vec<T, 2>(this->x + v.x, this->y + v.y);
+			}
+
+			constexpr vec<T, 2> operator-(vec<T, 2> const& v) {
+				return vec<T, 2>(this->x - v.x, this->y - v.y);
+			}
+
+			constexpr vec<T, 2> operator/(vec<T, 2> const& v) {
+				return vec<T, 2>(this->x / v.x, this->y / v.y);
+			}
+
+			constexpr vec<T, 2> operator*(vec<T, 2> const& v) {
+				return vec<T, 2>(this->x * v.x, this->y * v.y);
+			}
+
+
+			constexpr vec<T, 2> operator*(T const s) {
+				return vec<T, 2>(this->x * s, this->y * s);
+			}
+
+			constexpr vec<T, 2> operator/(T const s) {
+				return vec<T, 2>(this->x / s, this->y / s);
 			}
 		};
 	}

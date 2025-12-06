@@ -1,103 +1,116 @@
 #pragma once
-#include <cassert>
-#include <stdint.h>
+#include <vec.h>
+
 
 namespace wizmcore {
-
 	namespace math {
+
 		template<typename T>
-		class vec4 {
+		class vec<T, 4> {
+
+		private:
+			const static uint16_t length = 3;
+
 		public:
 			T x, y, z, w;
 
-
 		public:
-			typedef uint16_t length_type;
-			static constexpr length_type length() { return 4; }
+			vec<T, 4>() = default;
 
-		public:
+			vec<T, 4>(T _x) {
+				x = y = z = w = _x;
+			}
+			vec<T, 4>(T _x, T _y, T _z, T _w) {
+				x = _x;
+				y = _y;
+				z = _z;
+				w = _w;
+			}
 
-			vec4() : x(0), y(0), z(0), w(0) {}
-			vec4(T v) : x(v), y(v), z(v), w(v) {}
-			vec4(T v1, T v2, T v3, T v4) : x(v1), y(v2), z(v3), w(v4) {}
-
-			constexpr vec4& operator=(const vec4& v) {
-				x = v.x;
-				y = v.y;
-				z = v.z;
-				w = v.w;
-				return *this;
+			constexpr bool operator==(vec<T, 4> const& v) {
+				return (v.x == x &&
+					v.y == y &&
+					v.z == z && 
+					v.w == w
+					);
 			}
 
 
-			constexpr vec4& operator*=(const vec4& v) {
-				x *= v.x;
-				y *= v.y;
-				z *= v.z;
-				w *= v.w;
-				return *this;
+			constexpr bool operator!=(vec<T, 4> const& v) {
+				return !(v.x == x &&
+					v.y == y &&
+					v.z == z
+					v.w == w
+					);
 			}
 
 
-			constexpr vec4& operator/=(const vec4& v) {
-				x /= v.x;
-				y /= v.y;
-				z /= v.z;
-				w /= v.w;
-				return *this;
+			constexpr void operator+=(vec<T, 4> const& v) {
+				this->x += v.x;
+				this->y += v.y;
+				this->z += v.z;
+				this->w += v.w;
 			}
-			constexpr vec4& operator+=(const vec4& v) {
-				x += v.x;
-				y += v.y;
-				z += v.z;
-				w += v.w;
-				return *this;
+
+			constexpr void operator-=(vec<T, 4> const& v) {
+				this->x -= v.x;
+				this->y -= v.y;
+				this->z -= v.z;
+				this->w -= v.w;
 			}
-			constexpr vec4& operator-=(const vec4& v) {
-				x -= v.x;
-				y -= v.y;
-				z -= v.z;
-				w -= v.w;
-				return *this;
+
+			constexpr void operator*=(vec<T, 4> const& v) {
+				this->x *= v.x;
+				this->y *= v.y;
+				this->z *= v.z;
+				this->w *= v.w;
 			}
-			constexpr vec4 operator+(const vec4& v) const {
-				return vec4(x + v.x, y + v.y, z + v.z, w + v.w);
+
+
+			constexpr void operator/=(vec<T, 4> const& v) {
+				this->x /= v.x;
+				this->y /= v.y;
+				this->z /= v.z;
+				this->w /= v.w;
+			}
+
+			constexpr vec<T, 4> operator+(vec<T, 4> const& v) {
+				return vec<T, 4>(this->x + v.x, this->y + v.y, this->z + v.z, this->w + v.w);
+			}
+
+			constexpr vec<T, 4> operator-(vec<T, 4> const& v) {
+				return vec<T, 4>(this->x - v.x, this->y - v.y, this->z - v.z, this->w - v.w );
+			}
+
+			constexpr vec<T, 4> operator/(vec<T, 4> const& v) {
+				return vec<T, 4>(this->x / v.x, this->y / v.y, this->z / v.z, this->w / v.w);
+			}
+
+			
+			constexpr vec<T, 4> operator*(vec<T, 4> const& v) const {
+				return vec<T, 4>(this->x * v.x, this->y * v.y, this->z * v.z, this->w * v.w);
 			}
 			
-
-
-			constexpr vec4<T> operator-() {
-				return vec4<T>(
-					-x,
-					-y,
-					-z,
-					-w);
+			
+			constexpr vec<T, 4> operator*(vec<T, 4> const& v) {
+				return vec<T, 4>(this->x * v.x, this->y * v.y, this->z * v.z, this->w * v.w);
 			}
 
-			constexpr vec4<T> operator-(const vec4<T>& v) const {
-				return vec4<T>(
-					x - v.x,
-					y - v.y,
-					z - v.z,
-					w - v.w);
+			constexpr vec<T, 4> operator*(T s) const {
+				return vec<T, 4>(this->x * s, this->y * s, this->z * s, this->w * s);
 			}
 
+			constexpr vec<T, 4> operator/(T const s) {
+				return vec<T, 4>(this->x / s, this->y / s, this->z / s, this->w / s);
+			}
 
-			constexpr vec4 operator/(const vec4& v) {
-				return vec4(x / v.x, y / v.y, z / v.z, w / v.w);
-			}
-			constexpr vec4 operator*(const vec4& v) {
-				return vec4(x * v.x, y * v.y, z * v.z, w * v.w);
-			}
-			constexpr vec4 operator*(const T s) {
-				return vec4(x * s, y * s, z * s, w * s);
-			}
-			constexpr T& operator[](length_type i) {
-				assert(i >= 0 && i < this->length());
+			constexpr T& operator[](uint16_t i) {
+				if (i > length) {/* ERROR*/ throw "cant do this shit"; }
 				return (&x)[i];
 			}
-			constexpr T const& operator[](length_type i) const {
-				assert(i >= 0 && i < this->length());
+
+			constexpr T const& operator[](uint16_t i) const {
+				if (i > length) {/* ERROR*/ throw "cant do this shit"; }
 				return (&x)[i];
 			}
 		};
