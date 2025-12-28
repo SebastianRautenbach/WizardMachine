@@ -15,7 +15,7 @@ namespace wizmcore {
 
 			// constructors //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			mat<T, 4, 4>() {}
+			mat<T, 4, 4>() = default;
 			
 			mat<T, 4, 4>(T s) {
 				values[0] = vec<T, 4>(s);
@@ -43,66 +43,66 @@ namespace wizmcore {
 
 			constexpr mat<T, 4, 4> operator+(mat<T, 4, 4> const& m) {
 				return mat<T, 4, 4>(
-				this->values[0] + m.values[0];
-				this->values[1] + m.values[1];
-				this->values[2] + m.values[2];
-				this->values[3] + m.values[3];
+				this->values[0] + m.values[0],
+				this->values[1] + m.values[1],
+				this->values[2] + m.values[2],
+				this->values[3] + m.values[3]
 				);
 			}
 			constexpr mat<T, 4, 4> operator+(T s) {
 				return mat<T, 4, 4>(
-				this->values[0] + s;
-				this->values[1] + s;
-				this->values[2] + s;
-				this->values[3] + s;
+				this->values[0] + s,
+				this->values[1] + s,
+				this->values[2] + s,
+				this->values[3] + s
 					);
 			}
 			constexpr mat<T, 4, 4> operator-(mat<T, 4, 4> const& m) {
 				return mat<T, 4, 4>(
-				this->values[0] - m.values[0];
-				this->values[1] - m.values[1];
-				this->values[2] - m.values[2];
-				this->values[3] - m.values[3];
+				this->values[0] - m.values[0],
+				this->values[1] - m.values[1],
+				this->values[2] - m.values[2],
+				this->values[3] - m.values[3]
 					);
 			}
 			constexpr mat<T, 4, 4> operator-(T s) {
 				return mat<T, 4, 4>(
-				this->values[0] - s;
-				this->values[1] - s;
-				this->values[2] - s;
-				this->values[3] - s;
+				this->values[0] - s,
+				this->values[1] - s,
+				this->values[2] - s,
+				this->values[3] - s
 					);
 			}
 			constexpr mat<T, 4, 4> operator*(mat<T, 4, 4> const& m) {
 				return mat<T, 4, 4>(
-				this->values[0] * m.values[0];
-				this->values[1] * m.values[1];
-				this->values[2] * m.values[2];
-				this->values[3] * m.values[3];
+				this->values[0] * m.values[0],
+				this->values[1] * m.values[1],
+				this->values[2] * m.values[2],
+				this->values[3] * m.values[3]
 					);
 			}
 			constexpr mat<T, 4, 4> operator*(T s) {
 				return mat<T, 4, 4>(
-				this->values[0] * s;
-				this->values[1] * s;
-				this->values[2] * s;
-				this->values[3] * s;
+				this->values[0] * s,
+				this->values[1] * s,
+				this->values[2] * s,
+				this->values[3] * s
 					);
 			}
 			constexpr mat<T, 4, 4> operator/(mat<T, 4, 4> const& m) {
 				return mat<T, 4, 4>(
-				this->values[0] / m.values[0];
-				this->values[1] / m.values[1];
-				this->values[2] / m.values[2];
-				this->values[3] / m.values[3];
+				this->values[0] / m.values[0],
+				this->values[1] / m.values[1],
+				this->values[2] / m.values[2],
+				this->values[3] / m.values[3]
 					);
 			}
 			constexpr  mat<T, 4, 4> operator/(T s) {
 				return mat<T, 4, 4>(
-				this->values[0] / s;
-				this->values[1] / s;
-				this->values[2] / s;
-				this->values[3] / s;
+				this->values[0] / s,
+				this->values[1] / s,
+				this->values[2] / s,
+				this->values[3] / s
 					);
 			}
 

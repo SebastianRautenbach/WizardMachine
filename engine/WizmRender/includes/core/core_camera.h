@@ -1,18 +1,19 @@
 #pragma once
-#include "math/mat4.h"
-
-using namespace wizmcore;
+#include "math/vec_types.h"
 
 namespace wizmrenderer {
 
 
-	enum eCameraType {
+	enum e_camera_type {
 		eCameraType_2D,
 		eCameraType_3D,
 	};
 
 
 
-	class core_camera {		
+	class core_camera {
+		public:
+		virtual void update_view_matrix() = 0;
+		virtual e_camera_type get_camera_type() = 0;
 	};
 }

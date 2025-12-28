@@ -4,6 +4,8 @@
 #include "core_buffer.h"
 #include <vector>
 
+#include "math/vec_types.h"
+
 using namespace wizmcore;
 
 namespace wizmrenderer {
@@ -25,11 +27,11 @@ namespace wizmrenderer {
 
 
 	struct vertex_data {
-		math::vec3<double> Position;
-		math::vec3<double> Normal;
-		math::vec2<double> TexCoords;
-		math::vec3<double> Tangent;
-		math::vec3<double> Bitangent;
+		math::vec3 Position;
+		math::vec3 Normal;
+		math::vec2 TexCoords;
+		math::vec3 Tangent;
+		math::vec3 Bitangent;
 		int m_BoneIDs[4];
 		float m_Weights[4];
 	};

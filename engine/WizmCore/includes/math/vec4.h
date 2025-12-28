@@ -15,6 +15,9 @@ namespace wizmcore {
 			T x, y, z, w;
 
 		public:
+			
+			constexpr vec() = default;
+			
 			vec<T, 4>() = default;
 
 			vec<T, 4>(T _x) {

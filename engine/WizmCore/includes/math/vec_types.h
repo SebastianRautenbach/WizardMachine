@@ -1,6 +1,7 @@
 #pragma once
 #include "vec.h"
 #include "mat.h"
+#include "quat.h"
 
 namespace wizmcore {
 	namespace math {
@@ -12,5 +13,7 @@ namespace wizmcore {
 		typedef mat<float, 2, 2> mat2;
 		typedef mat<float, 3, 3> mat3;
 		typedef mat<float, 4, 4> mat4;
+		
+		typedef qua<float> quat;
 	}
 }

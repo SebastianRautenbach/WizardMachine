@@ -19,6 +19,7 @@ IncludeDir["Render"]   = "engine/WizmRender/includes"
 IncludeDir["GLFW"]     = "vendor/glfw/include"
 IncludeDir["GLAD"]     = "vendor/glad/include"
 IncludeDir["KHR"]      = "vendor/KHR/include"
+IncludeDir["ZER"]      = "vendor/ZER/include"
 
 LibDir = {}
 LibDir["Core"]         = "engine/WizmCore/lib"
@@ -36,7 +37,7 @@ function CreateModule(name, kindType, path)
     project(name)
         kind(kindType)
         language "C++"
-        cppdialect "C++17"
+        cppdialect "C++20"
         staticruntime "on"
 
         location(path)
@@ -75,7 +76,8 @@ end
 CreateModule("WizmCore", "StaticLib", "engine/WizmCore")
 
 includedirs {
-    IncludeDir["Core"]
+    IncludeDir["Core"],
+    IncludeDir["ZER"]
 }
 
 libdirs {
@@ -111,7 +113,7 @@ links {
 project "WizmRender"
     kind "ConsoleApp"
     language "C++"
-    cppdialect "C++17"
+    cppdialect "C++20"
     staticruntime "on"
 
     location "engine/WizmRender"

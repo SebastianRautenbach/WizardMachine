@@ -1,5 +1,5 @@
 #pragma once
-#include <vec.h>
+#include "vec.h"
 
 
 namespace wizmcore {
@@ -14,6 +14,9 @@ namespace wizmcore {
 			T x, y;
 
 		public:
+			
+			constexpr vec() = default;
+			
 			vec<T, 2>(T _x) {
 				x = y = _x;
 			}
