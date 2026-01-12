@@ -1,95 +1,113 @@
 #include "core/camera3D.h"
+#include "math/generic_mat_func.h"
+#include "math/generic_vec_func.h"
+#include "math/vec3.h"
+#include "math/vec4.h"
+#include "math/generic_vec_func.h"
+#include "math/mat4x4.h"
 
-wizmrenderer::camera3D::camera3D(int window_width, int window_height, float fov, float near_plane, float far_plane,
+wizmrenderer::camera3D::camera3D(float fov, float near_plane, float far_plane,
     float speed)
-    :m_window_width(window_width) ,m_window_height(window_height), m_fov(fov), m_near_plane(near_plane),
+    : m_fov(fov), m_near_plane(near_plane),
 m_far_plane(far_plane), m_speed(speed)
-{
-    m_rotation_matrix = math::mat4(1.f);
-}
-
-void wizmrenderer::camera3D::update_projection_matrix()
-{
-}
-
-void wizmrenderer::camera3D::update_rotation_matrix()
 {
 }
 
 void wizmrenderer::camera3D::set_fov(float fov)
 {
+    m_fov = fov;
+    m_has_projection_updated = true;
 }
 
 void wizmrenderer::camera3D::set_aspect_ratio(float aspect_ratio)
 {
+    m_aspect_ratio = aspect_ratio;
+    m_has_projection_updated = true;
 }
 
-void wizmrenderer::camera3D::set_window_size(int window_width, int window_height)
+void wizmrenderer::camera3D::set_far_plane(float far_plane)
 {
+    m_far_plane = far_plane;
+    m_has_projection_updated = true;
 }
 
-void wizmrenderer::camera3D::set_aspect_ratio(int aspect_ratio)
+void wizmrenderer::camera3D::set_near_plane(float near_plane)
 {
+    m_near_plane = near_plane;
+    m_has_projection_updated = true;
+}
+
+void wizmrenderer::camera3D::reset_rotation()
+{
+    
+    //
+    m_has_view_updated = true;
 }
 
 void wizmrenderer::camera3D::set_position(const math::vec3& position)
 {
+    m_position = position;
+    m_has_view_updated = true;
 }
 
-void wizmrenderer::camera3D::set_rotation(const math::quat& rotation)
+void wizmrenderer::camera3D::set_yaw(float yaw)
 {
 }
 
-void wizmrenderer::camera3D::set_rotation(const math::vec3& rotation)
+void wizmrenderer::camera3D::set_pitch(float pitch)
 {
 }
 
-void wizmrenderer::camera3D::set_rotation_matrix(const math::mat4& rotation_matrix)
+void wizmrenderer::camera3D::set_roll(float roll)
 {
 }
 
-void wizmrenderer::camera3D::add_yaw(float yaw)
+
+const math::mat4& wizmrenderer::camera3D::get_view_matrix()
 {
+    if (m_has_view_updated)
+    {
+        math::vec3 forward = get_forward_vector();
+        math::vec3 up = get_up_vector();
+        m_view_matrix = math::lookAt(m_position, m_position + forward, up);
+        m_has_projection_updated = false;
+        return m_view_matrix; 
+    } 
+    return m_view_matrix;
 }
 
-void wizmrenderer::camera3D::add_pitch(float pitch)
+const math::mat4& wizmrenderer::camera3D::get_projection_matrix()
 {
+    if (m_has_projection_updated)
+    {
+        m_projection_matrix = math::perspective(m_fov, m_aspect_ratio, m_near_plane, m_far_plane);
+        m_has_projection_updated = false;
+        return m_projection_matrix;
+    }
+    return m_projection_matrix;
 }
 
-void wizmrenderer::camera3D::add_roll(float roll)
+const math::mat4& wizmrenderer::camera3D::get_rotation_matrix() const
 {
+    return m_rotation_matrix;
 }
 
-void wizmrenderer::camera3D::move_up(float distance)
+math::vec3 wizmrenderer::camera3D::get_forward_vector() const
 {
+    math::vec3 rot_m = math::vec3(m_rotation_matrix[2].x, m_rotation_matrix[2].y, m_rotation_matrix[2].z);
+    return -math::normalize(rot_m);
 }
 
-void wizmrenderer::camera3D::move_right(float distance)
+math::vec3 wizmrenderer::camera3D::get_right_vector() const
 {
+    math::vec3 rot_m = math::vec3(m_rotation_matrix[0].x, m_rotation_matrix[0].y, m_rotation_matrix[0].z);
+    return -math::normalize(rot_m);
 }
 
-void wizmrenderer::camera3D::move_forward(float distance)
+math::vec3 wizmrenderer::camera3D::get_up_vector() const
 {
-}
-
-void wizmrenderer::camera3D::set_speed(float speed)
-{
-}
-
-void wizmrenderer::camera3D::add_speed(float speed)
-{
-}
-
-void wizmrenderer::camera3D::update_aspect_ratio()
-{
-}
-
-wizmrenderer::camera3D::~camera3D()
-{
-}
-
-void wizmrenderer::camera3D::update_view_matrix()
-{
+    math::vec3 rot_m = math::vec3(m_rotation_matrix[1].x, m_rotation_matrix[1].y, m_rotation_matrix[1].z);
+    return -math::normalize(rot_m);
 }
 
 wizmrenderer::e_camera_type wizmrenderer::camera3D::get_camera_type()

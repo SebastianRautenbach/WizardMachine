@@ -9,7 +9,7 @@ namespace wizmcore {
 			vec<T, 4> values;
 
 		public:
-			quat() = default;
+			qua() = default;
 
 			qua(T x, T y, T z, T w) {
 				values[0] = x;

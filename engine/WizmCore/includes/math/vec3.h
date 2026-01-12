@@ -73,12 +73,18 @@ namespace wizmcore {
 			constexpr vec<T, 3> operator+(vec<T, 3> const& v) {
 				return vec<T, 3>(this->x + v.x, this->y + v.y, this->z + v.z);
 			}
+			constexpr vec<T, 3> operator+(vec<T, 3> const& v) const { 
+				return vec<T, 3>(this->x + v.x, this->y + v.y, this->z + v.z);
+			}
 
 			constexpr vec<T, 3> operator-(vec<T, 3> const& v) {
 				return vec<T, 3>(this->x - v.x, this->y - v.y, this->z - v.z);
 			}
 			constexpr vec<T, 3> operator-(vec<T, 3> const& v) const {
 				return vec<T, 3>(this->x - v.x, this->y - v.y, this->z - v.z);
+			}
+			constexpr vec<T, 3> operator-() const {
+				return vec<T, 3>(-this->x, -this->y, -this->z);
 			}
 
 

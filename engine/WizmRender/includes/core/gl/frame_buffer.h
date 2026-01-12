@@ -81,9 +81,6 @@ namespace wizmrenderer {
 		//unsigned int m_tex_id;
 		//unsigned int m_depth_id;
 
-		/*
-			I like how Cherno did his
-		*/
 		framebuffer_spec m_spec;
 		std::vector<framebuffer_texture_sepc> m_color_attachment_spec;
 		framebuffer_texture_sepc m_depth_attachment_spec = framebuffer_texture_format::None;

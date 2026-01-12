@@ -1,5 +1,5 @@
 #pragma once
-#include <vec.h>
+#include "vec.h"
 
 
 namespace wizmcore {
@@ -15,9 +15,6 @@ namespace wizmcore {
 			T x, y, z, w;
 
 		public:
-			
-			constexpr vec() = default;
-			
 			vec<T, 4>() = default;
 
 			vec<T, 4>(T _x) {
@@ -42,7 +39,7 @@ namespace wizmcore {
 			constexpr bool operator!=(vec<T, 4> const& v) {
 				return !(v.x == x &&
 					v.y == y &&
-					v.z == z
+					v.z == z &&
 					v.w == w
 					);
 			}

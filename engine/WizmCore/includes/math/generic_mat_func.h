@@ -1,8 +1,8 @@
 #pragma once
-#include <vec.h>
-#include <mat.h>
+#include "vec.h"
+#include "mat.h"
 #include <cmath>
-#include <generic_vec_func.h>
+#include "generic_vec_func.h"
 
 namespace wizmcore {
 	namespace math {
@@ -74,13 +74,6 @@ namespace wizmcore {
 			Result[3][0] = -dot(s, eye);
 			Result[3][1] = -dot(u, eye);
 			Result[3][2] = dot(f, eye);
-			return Result;
-		}
-
-		template<typename T>
-		inline mat<T, 4, 4> transform() {
-			mat<4, 4, T, Q> Result(m);
-			Result[3] = m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3];
 			return Result;
 		}
 	}
