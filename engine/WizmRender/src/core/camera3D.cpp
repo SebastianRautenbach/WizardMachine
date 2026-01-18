@@ -1,13 +1,17 @@
 #include "core/camera3D.h"
 #include "math/generic_mat_func.h"
 #include "math/generic_vec_func.h"
-#include "math/vec3.h"
-#include "math/vec4.h"
-#include "math/generic_vec_func.h"
-#include "math/mat4x4.h"
+
+void wizmrenderer::camera3D::set_model_view_matrix()
+{
+}
+
+void wizmrenderer::camera3D::set_projection_matrix()
+{
+}
 
 wizmrenderer::camera3D::camera3D(float fov, float near_plane, float far_plane,
-    float speed)
+                                 float speed)
     : m_fov(fov), m_near_plane(near_plane),
 m_far_plane(far_plane), m_speed(speed)
 {

@@ -1,9 +1,9 @@
 #pragma once
 #include "core_camera.h"
-#include "math/quat.h"
 #include "math/vec_types.h"
+#include "math/vec4.h"
+#include "math/vec3.h"
 #include "math/mat4x4.h"
-#include "system/node.h"
 
 using namespace wizmcore;
 
@@ -11,13 +11,17 @@ namespace wizmrenderer {
 	class camera3D : public core_camera {
 	public:
 
-		
+		void set_model_view_matrix() override;
+		void set_projection_matrix() override;
+
+
 		camera3D (
 		float fov = 60.f,
 		float near_plane = 0.1f,
 		float far_plane = 1000.f,
 		float speed = 0.01f
 		);
+		
 		~camera3D() = default;
 		
 		void set_fov(float fov);

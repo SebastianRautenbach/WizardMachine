@@ -13,6 +13,7 @@ namespace wizmrenderer {
 
 	class core_camera {
 		public:
+		virtual ~core_camera() = default;
 		virtual void set_model_view_matrix() = 0;
 		virtual void set_projection_matrix() = 0;
 		virtual e_camera_type get_camera_type() = 0;

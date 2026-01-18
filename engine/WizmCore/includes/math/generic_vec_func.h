@@ -2,6 +2,7 @@
 #include "vec.h"
 #include "vectorize.h"
 #include "generic_exp_func.h"
+#include <limits>
 #include <cmath>
 
 namespace wizmcore {
