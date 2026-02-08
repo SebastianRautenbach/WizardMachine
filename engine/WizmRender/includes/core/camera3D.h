@@ -1,9 +1,6 @@
 #pragma once
 #include "core_camera.h"
-#include "math/vec_types.h"
-#include "math/vec4.h"
-#include "math/vec3.h"
-#include "math/mat4x4.h"
+#include "math/pch_math.h"
 
 using namespace wizmcore;
 
@@ -15,30 +12,29 @@ namespace wizmrenderer {
 		~camera3D() = default;
 		
 	public:
-		void set_model_view_matrix() override;
-		void set_projection_matrix() override;
-		e_camera_type get_camera_type() override;
-	
+		void save_data(std::string parent_name, std::string index, filedata::ZER& save_t) const override;
+		void read_saved_data(std::string parent_name, std::string index, filedata::ZER& save_t) override;
+		//e_camera_type get_camera_type() const override { return eCameraType_Perspective; }
+		
 	public:
-		math::vec3 get_forward();
-		math::vec3 get_right();
-		math::vec3 get_up();
+		const glm::mat4& get_view_matrix();
+		const glm::mat4& get_projection_matrix();
+		float get_fov() const { return m_fov; }
+		const glm::vec2& get_pitch_limits() { return m_pitch_limits; }
+		const glm::vec2& get_yaw_limits() { return m_yaw_limits; }
+		
+		void set_fov(float fov) { m_fov = fov; }
+		void set_view_matrix(const glm::mat4& view_matrix) { m_view_matrix = view_matrix; }
+		void set_projection_matrix (const glm::mat4& projection_matrix) { m_projection_matrix = projection_matrix; }
+		void set_pitch_limits(const glm::vec2 limits) { m_pitch_limits = limits; }
+		void set_yaw_limits(const glm::vec2 limits) { m_yaw_limits = limits; }
 		
 	private:
-	
-		float m_pitch;
-		float m_yaw;
-		float m_roll;
+		glm::mat4 m_view_matrix;
+		glm::mat4 m_projection_matrix;
 		
-		float m_near_plane;
-		float m_far_plane;
-		
-		math::vec3 m_position;
-		
-		math::mat4 m_view_matrix, m_prev_view_matrix;
-		math::mat4 m_projection_matrix, m_prev_projection_matrix;
-		
-		float m_sensitivity = 0.001;
-		float mSpeed = 5.0f;
+		float m_fov;
+		glm::vec2 m_pitch_limits;
+		glm::vec2 m_yaw_limits;
 	};
 }

@@ -98,4 +98,4 @@ void wizmplatform::core_input::mouse_stop_move()
 
 std::unordered_map<int, bool> wizmplatform::core_input::keys;
 wizmplatform::mouse_info wizmplatform::core_input::m_mouse_info;
-wizmcore::math::vec2 wizmplatform::core_input::last_mouse_pos;
+glm::vec2 wizmplatform::core_input::last_mouse_pos;

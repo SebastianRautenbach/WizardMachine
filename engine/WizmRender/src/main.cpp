@@ -2,5 +2,4 @@
 
 int main()
 {
-    wizmrenderer::camera3D camera;
 }

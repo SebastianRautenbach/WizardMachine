@@ -2,10 +2,9 @@
 #include <glfw3.h>
 #include "system/updateable.h"
 #include "definitions/core_definitions.h"
-#include "math/vec2.h"
+#include "math/pch_math.h"
 #include <unordered_map>
 
-#include "math/vec_types.h"
 
 namespace wizmplatform {
 
@@ -45,7 +44,7 @@ namespace wizmplatform {
 
 	private:
 		float w_width, w_height;
-		static wizmcore::math::vec2 last_mouse_pos;
+		static glm::vec2 last_mouse_pos;
 		static mouse_info m_mouse_info;
 		static std::unordered_map<int, bool> keys;
 		pwizm_window m_window = nullptr;

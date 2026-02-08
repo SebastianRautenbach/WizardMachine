@@ -20,6 +20,7 @@ IncludeDir["GLFW"]     = "vendor/glfw/include"
 IncludeDir["GLAD"]     = "vendor/glad/include"
 IncludeDir["KHR"]      = "vendor/KHR/include"
 IncludeDir["ZER"]      = "vendor/ZER/include"
+IncludeDir["GLM"]      = "vendor/glm"
 
 LibDir = {}
 LibDir["Core"]         = "engine/WizmCore/lib"
@@ -77,7 +78,8 @@ CreateModule("WizmCore", "StaticLib", "engine/WizmCore")
 
 includedirs {
     IncludeDir["Core"],
-    IncludeDir["ZER"]
+    IncludeDir["ZER"],
+    IncludeDir["GLM"],
 }
 
 libdirs {
@@ -93,7 +95,8 @@ CreateModule("WizmPlatform", "StaticLib", "engine/WizmPlatform")
 includedirs {
     IncludeDir["Platform"],
     IncludeDir["Core"],
-    IncludeDir["GLFW"]
+    IncludeDir["GLFW"],
+    IncludeDir["GLM"],
 }
 
 libdirs {
@@ -135,6 +138,7 @@ project "WizmRender"
         IncludeDir["GLFW"],
         IncludeDir["GLAD"],
         IncludeDir["KHR"],
+	IncludeDir["GLM"],
     }
 
     libdirs { 
