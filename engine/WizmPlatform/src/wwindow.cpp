@@ -1,6 +1,6 @@
 #include "wwindow.h"
 #include "core_input.h"
-#include <glfw3.h>
+#include <glfw/glfw3.h>
 #include "definitions/core_definitions.h"
 
 

@@ -1,5 +1,5 @@
 #include "wplatform.h"
-#include <glfw3.h>
+#include <glfw/glfw3.h>
 
 namespace wizmplatform {
 	wplatform::wplatform(wizmplatform::wwindow* window)

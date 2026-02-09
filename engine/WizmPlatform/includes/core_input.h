@@ -1,5 +1,5 @@
 #pragma once
-#include <glfw3.h>
+#include <glfw/glfw3.h>
 #include "system/updateable.h"
 #include "definitions/core_definitions.h"
 #include "math/pch_math.h"

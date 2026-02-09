@@ -14,7 +14,7 @@ namespace wizmrenderer {
 	public:
 		void save_data(std::string parent_name, std::string index, filedata::ZER& save_t) const override;
 		void read_saved_data(std::string parent_name, std::string index, filedata::ZER& save_t) override;
-		//e_camera_type get_camera_type() const override { return eCameraType_Perspective; }
+		e_camera_type get_camera_type() override { return eCameraType_Perspective; }
 		
 	public:
 		const glm::mat4& get_view_matrix();

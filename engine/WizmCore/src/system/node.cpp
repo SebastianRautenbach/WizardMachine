@@ -1,5 +1,5 @@
 #include "system/node.h"
-#include "ZER.h"
+#include "ZER/ZER.h"
 
 wizmcore::core_node::~core_node()
 {
@@ -44,6 +44,11 @@ void wizmcore::core_node::remove_child(core_node* child_node)
 {
     if (m_child_nodes.empty()) { return; }
     m_child_nodes.erase(std::remove(m_child_nodes.begin(), m_child_nodes.end(), child_node), m_child_nodes.end());
+}
+
+void wizmcore::core_node::remove_all_children()
+{
+    m_child_nodes.clear();
 }
 
 wizmcore::core_node* wizmcore::core_node::get_parent()

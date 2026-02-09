@@ -16,19 +16,22 @@ IncludeDir["Platform"] = "engine/WizmPlatform/includes"
 IncludeDir["Render"]   = "engine/WizmRender/includes"
 
 
-IncludeDir["GLFW"]     = "vendor/glfw/include"
-IncludeDir["GLAD"]     = "vendor/glad/include"
-IncludeDir["KHR"]      = "vendor/KHR/include"
-IncludeDir["ZER"]      = "vendor/ZER/include"
+IncludeDir["GLFW"]     = "vendor/glfw"
+IncludeDir["GLAD"]     = "vendor/glad"
+IncludeDir["KHR"]      = "vendor/KHR"
+IncludeDir["ZER"]      = "vendor/ZER"
 IncludeDir["GLM"]      = "vendor/glm"
+IncludeDir["ASSIMP"]   = "vendor/assimp"
 
 LibDir = {}
 LibDir["Core"]         = "engine/WizmCore/lib"
 LibDir["Platform"]     = "engine/WizmPlatform/lib"
+LibDir["Render"]       = "engine/WizmRender/lib"
 LibDir["GLFW"]         = "vendor/glfw/lib"
 
 BinDir = {}
-BinDir["GLFW"]         = "vendor/glfw/bin"
+BinDir["GLFW"]         = "vendor/glfw/glfw/bin"
+BinDir["ASSIMP"]         = "vendor/assimp/assimp/bin"
 
 -------------------------------------------------------
 -- Module Creation Helper
@@ -128,7 +131,7 @@ project "WizmRender"
         "engine/WizmRender/src/**.cpp",
         "engine/WizmRender/includes/**.h",
         "engine/WizmRender/includes/**.hpp",
-        "vendor/glad/src/glad.c"
+        "vendor/glad/glad/src/glad.c"
     }
 
     includedirs {
@@ -138,17 +141,20 @@ project "WizmRender"
         IncludeDir["GLFW"],
         IncludeDir["GLAD"],
         IncludeDir["KHR"],
-	IncludeDir["GLM"],
+	    IncludeDir["GLM"],
+	    IncludeDir["ASSIMP"],
     }
 
     libdirs { 
-        LibDir["GLFW"]
+        LibDir["GLFW"],
+        LibDir["Render"]
     }
 
     links {
         "WizmCore",
         "WizmPlatform",
-        "opengl32"
+        "opengl32",
+        "assimp-vc143-mtd",
     }
 
 --    postbuildcommands {

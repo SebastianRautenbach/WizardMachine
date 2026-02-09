@@ -30,6 +30,7 @@ namespace wizmcore {
 		
 		void add_child(core_node* child_node);
 		void remove_child(core_node* child_node);
+		void remove_all_children();
 		
 		core_node* get_parent();
 		std::vector<core_node*> get_children();

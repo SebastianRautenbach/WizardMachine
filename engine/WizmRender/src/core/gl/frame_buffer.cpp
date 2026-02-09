@@ -1,5 +1,5 @@
 #include "core/gl/frame_buffer.h"
-#include "glad.h"
+#include "glad/glad.h"
 #include <iostream>
 
 bool wizmrenderer::is_depth_format(framebuffer_texture_format format)

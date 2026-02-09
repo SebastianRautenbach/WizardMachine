@@ -15,7 +15,7 @@ namespace wizmrenderer {
 	class core_camera : public wizmcore::node3D {
 		
 	public:
-		//virtual e_camera_type get_camera_type() const;
+		virtual e_camera_type get_camera_type() = 0;
 		
 	public:
 		float get_aspect_ratio() const { return m_aspect; }
