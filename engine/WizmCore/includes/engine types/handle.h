@@ -2,5 +2,5 @@
 
 namespace wizmcore
 {
-    typedef unsigned int Handle;
+    typedef uint32_t Handle;
 }

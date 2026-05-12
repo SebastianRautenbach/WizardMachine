@@ -17,7 +17,7 @@ namespace wizmrenderer
         void loadModel(std::string path);
         
     public:
-        std::vector<core_gl_texture> textures_loaded;
+        //std::vector<core_gl_texture> textures_loaded;
         std::vector<core_mesh>    meshes;
         std::string directory;
         bool gammaCorrection;

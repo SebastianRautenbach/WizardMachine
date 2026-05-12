@@ -3,30 +3,38 @@
 #include "render/renderlisttypes.h"
 #include "math/pch_math.h"
 #include "system/node.h"
-#include "engine types/handle.h"
 
 namespace wizmrenderer
 {
     class mesh;
     class material;
     class camera3D;
+    class renderable;
     
-    class render_node : wizmcore::core_node
+    struct render_item
     {
-    public:
-        wizmcore::Handle m_mesh_handle;
-        wizmcore::Handle m_material_handle;
-        uint32_t submesh_index;
-        glm::mat4 world_transform;
+        mesh* mesh;
+        material* material;
+        glm::mat4 transformation;
         uint64_t sort_key;
     };
     
     class renderlist
     {
     public:
-        void add_to_render(mesh const& pmesh, material const& pmaterial, glm::mat4& ptransformation, camera3D const& pcamera);
+        void add_to_render(mesh* _mesh, material* _material, glm::mat4 const& _transformation);
+        void render_items() const;
+        void set_camera(camera3D* camera);
+        void order_lists();
         
-        std::vector<render_node> m_render_items;
+    private:
+        static bool sort_key_comparator_btf(render_item const& a, render_item const& b);
+        static bool sort_key_comparator_ftb(render_item const& a, render_item const& b);
+        
+    private:
+        std::vector<render_item> m_opaque_render_items;
+        std::vector<render_item> m_transparent_render_items;
+        camera3D* m_camera;
     };    
 }
 
