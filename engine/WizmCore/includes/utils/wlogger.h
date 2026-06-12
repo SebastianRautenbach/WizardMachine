@@ -1,8 +1,11 @@
 #pragma once
 
-namespace wizmcore {
-	class wlogger {
-	public:
-		void test_log(const char* text);
-	};
+namespace wizm {
+	namespace core
+	{
+		class wlogger {
+		public:
+			void test_log(const char* text);
+		};	
+	}
 }
