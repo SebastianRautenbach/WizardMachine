@@ -10,13 +10,13 @@
 
 namespace wizm
 {
-	namespace core
+	namespace renderer
 	{
 		class core_gl_shader {
 		public:
 			core_gl_shader(const char* vertex_file_path, const char* fragment_file_path);
 			core_gl_shader(const char* compute_file_path);
-			void use_shader();
+			void use_shader() const;
 			unsigned int get_shader_id() { return shader_id; }
 		
 		public:

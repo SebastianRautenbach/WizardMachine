@@ -13,7 +13,7 @@ void raise_event(wizm::core::core_event& event)
 int main()
 {
     wizm::platform::window_desc desc = {
-        "Cluster Engine", 
+        "Wizard Machine", 
         1920/2,
         1080/2,
         [](wizm::core::core_event& event) {raise_event(event);}

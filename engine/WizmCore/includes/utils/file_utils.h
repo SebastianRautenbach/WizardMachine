@@ -6,18 +6,21 @@
 #include <fstream>
 
 
-namespace wizmcore
+namespace wizm
 {
-    inline std::string read_file_to_str(const char* path) {
+    namespace core
+    {
+        inline std::string read_file_to_str(const char* path) {
 
-        std::ifstream path_src(path, std::ios::binary);
+            std::ifstream path_src(path, std::ios::binary);
         
-        std::vector<char> out((std::istreambuf_iterator<char>(path_src)),
-            std::istreambuf_iterator<char>());
-        out.emplace_back('\0');
+            std::vector<char> out((std::istreambuf_iterator<char>(path_src)),
+                std::istreambuf_iterator<char>());
+            out.emplace_back('\0');
 
-        path_src.close();
+            path_src.close();
 
-        return out.data();
+            return out.data();
+        }
     }
 }
