@@ -27,12 +27,13 @@ int main()
     //std::vector<wizm::renderer::vertex_data> vertexData = {{}};
     //wizm::renderer::core_vertex_buffer temp{vertexData};
     
-    wizm::renderer::camera_3d cam{wizm::math::vec3<float>(.0f), 
-        wizm::math::vec3<float>(.0f),
-        0.f, 0.f, 0.f, 0.f, 0.f};
+    wizm::renderer::camera_settings camera_settings;
+    wizm::renderer::camera_3d cam{camera_settings};
     
     while (!_window->should_close())
     {
+        cam.update(0.f);
+        
         _window->swap_buffers();
         _window->poll_events();
     }

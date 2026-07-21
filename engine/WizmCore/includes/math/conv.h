@@ -22,6 +22,31 @@ namespace wizm
             return d * PI / 180.f;
         }
         
+        inline float degrees(float r)
+        {
+            return r * 180.f / PI;
+        }
+        
+        inline float asin(float d)
+        {
+            return std::asin(d);
+        }
+        
+        inline float cos(float d)
+        {
+            return std::cos(d);
+        }
+        
+        inline float sin(float d)
+        {
+            return std::sin(d);
+        }
+        
+        inline float acos(float d)
+        {
+            return std::acos(d);
+        }
+        
         inline vec3<float> cross(vec3<float> const& v1, vec3<float> const& v2)
         {
             return {

@@ -283,10 +283,10 @@ namespace filedata
 
 			for (const auto& i : this->variables)
 			{
-				int index_found_at = i.find(var_name);
+				int index_found_at = static_cast<int>(i.find(var_name));
 				if (index_found_at != -1)
 				{
-					index_found_at += var_name.size();
+					index_found_at += static_cast<int>(var_name.size());
 					variable_value = retrieve_right_operand(i, index_found_at) + ","; break;
 				}
 			}
@@ -310,10 +310,10 @@ namespace filedata
 
 			for (auto i : this->variables)
 			{
-				int index_found_at = i.find(var_name);
+				int index_found_at = static_cast<int>(i.find(var_name);)
 				if (index_found_at != -1)
 				{
-					index_found_at += var_name.size();
+					index_found_at += static_cast<int>(var_name.size());
 					variable_value = retrieve_right_operand(i, index_found_at) + ","; break;
 				}
 			}
@@ -337,10 +337,10 @@ namespace filedata
 
 			for (auto i : this->variables)
 			{
-				int index_found_at = i.find(var_name);
+				int index_found_at = static_cast<int>(i.find(var_name));
 				if (index_found_at != -1)
 				{
-					index_found_at += var_name.size();
+					index_found_at += static_cast<int>(var_name.size());
 					variable_value = retrieve_right_operand(i, index_found_at) + ","; break;
 				}
 			}
@@ -418,7 +418,7 @@ namespace filedata
 
 		// retrieve the name on the left side just before the '\n'
 		std::string retrieve_property_name(const std::string& data, size_t starting_index) {
-			int ittr = starting_index - 1;
+			int ittr = static_cast<int>(starting_index) - 1;
 			std::string constructed_name;
 			std::string reconstructed_name;
 			while (ittr != -1 && data[ittr] != '\n')

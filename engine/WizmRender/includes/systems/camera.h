@@ -11,6 +11,9 @@ namespace wizm
             float near = 0.1f;
             float far = 10000.f;
             float speed = 2.5f;
+            float sensitivity = 0.1f;
+            float fov = 45.0f;
+            float aspect = 1.0f;
         };
         
         enum e_camera_type : uint32_t
@@ -29,7 +32,7 @@ namespace wizm
             
             virtual e_camera_type get_type() const = 0;
             
-        private:
+        protected:
             camera_settings m_settings;
             
         };

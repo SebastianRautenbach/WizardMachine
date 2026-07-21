@@ -141,8 +141,9 @@ project "WizmRender"
         IncludeDir["GLFW"],
         IncludeDir["GLAD"],
         IncludeDir["KHR"],
-	    IncludeDir["GLM"],
-	    IncludeDir["ASSIMP"],
+	IncludeDir["GLM"],
+	IncludeDir["ASSIMP"],
+	IncludeDir["ZER"],
     }
 
     libdirs { 
