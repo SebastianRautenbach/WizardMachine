@@ -9,19 +9,13 @@ namespace wizm
         class camera_3d : public camera
         {
         public:
-            
-            camera_3d(
-                math::vec3<float> tar, 
-                math::vec3<float> pos,
-                float fov,
-                float speed,
-                float sens,
-                float nearP,
-                float farP
-                );
-            
+            explicit camera_3d(const camera_settings& settings);
+
             void update(float delta_time) override;
-            e_camera_type get_type() override;
+            e_camera_type get_type() const override
+            {
+                return e_camera_type_3D;
+            };
         };
     }
 }
