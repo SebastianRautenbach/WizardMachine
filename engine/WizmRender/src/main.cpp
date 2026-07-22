@@ -5,9 +5,9 @@
 #include <ranges>
 #include <GLFW/glfw3.h>
 
-#include "systems/vertex_buffer.h"
+#include "system/vertex_buffer.h"
 #include "shader/shader.h"
-#include "systems/camera_3d.h"
+#include "system/camera_3d.h"
 
 
 wizm::renderer::camera_settings camera_settings;
@@ -16,9 +16,6 @@ wizm::renderer::camera_3d cam{camera_settings};
 void raise_event(wizm::core::core_event& event)
 {
     std::cout << "handled" << event.to_string() << "\n";
-    
-    
-    
     cam.add_movement(wizm::renderer::e_forward);
 }
 
