@@ -3,13 +3,23 @@
 #include "platform_input.h"
 #include <iostream>
 #include <ranges>
+#include <GLFW/glfw3.h>
+
 #include "systems/vertex_buffer.h"
 #include "shader/shader.h"
 #include "systems/camera_3d.h"
 
+
+wizm::renderer::camera_settings camera_settings;
+wizm::renderer::camera_3d cam{camera_settings};
+
 void raise_event(wizm::core::core_event& event)
 {
     std::cout << "handled" << event.to_string() << "\n";
+    
+    
+    
+    cam.add_movement(wizm::renderer::e_forward);
 }
 
 int main()
@@ -23,12 +33,13 @@ int main()
     
     auto _window = wizm::platform::create_window(desc);
     
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        return -1;
+    }
     
     std::vector<wizm::renderer::vertex_data> vertexData = {{}};
     wizm::renderer::core_vertex_buffer temp{vertexData};
-    
-    wizm::renderer::camera_settings camera_settings;
-    wizm::renderer::camera_3d cam{camera_settings};
     
     while (!_window->should_close())
     {

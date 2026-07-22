@@ -42,6 +42,7 @@ namespace wizm
                     m_position -= m_up * speed;
                     break;
                 }
+                m_active_move_states.erase(m_active_move_states.begin());
             }
         
             m_target = m_position + m_front;
@@ -70,6 +71,11 @@ namespace wizm
             m_front[2] = math::cos(math::radians(m_rotation[1])) * math::sin(math::radians(m_rotation[0]));
             m_front = math::normalize(m_front);
             m_right = math::normalize(math::cross(m_front, m_up));
+        }
+
+        void camera_3d::add_movement(e_camera_move_direction movement)
+        {
+            m_active_move_states.insert(movement);
         }
     }
 }

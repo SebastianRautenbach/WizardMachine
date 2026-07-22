@@ -43,6 +43,7 @@ namespace wizm
             float get_yaw() const;
             
             void update_orientation();
+            void add_movement(e_camera_move_direction movement);
             
         private:
             std::set<e_camera_move_direction> m_active_move_states;
