@@ -12,7 +12,7 @@ namespace wizm
             node_3d();
             
             math::vec3<float> m_position;
-            math::vec3<float> m_rotation;
+            math::vec3<float> m_rotation = {0.0f, 0.0f, 0.0f};
             math::vec3<float> m_scale;
             
             math::vec3<float> m_front;

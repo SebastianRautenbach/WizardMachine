@@ -95,8 +95,6 @@ namespace wizm
 			glGenVertexArrays(1, &this->buffer_id);
 			vbo = new core_vertex_buffer(vertices);
 			ibo = new core_index_buffer(indices);
-		
-		
 		}
 		
 		core_arr_vertex_buffer::~core_arr_vertex_buffer()

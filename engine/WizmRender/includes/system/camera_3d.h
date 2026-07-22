@@ -45,6 +45,9 @@ namespace wizm
             void update_orientation();
             void add_movement(e_camera_move_direction movement);
             
+            math::mat4<float> get_view_matrix() const;
+            math::mat4<float> get_projection_matrix() const;
+            
         private:
             std::set<e_camera_move_direction> m_active_move_states;
             math::vec3<float> m_target = math::vec3<float>(0.0f);

@@ -172,7 +172,10 @@ namespace wizm
 			void destroy_buffer() override;
 		
 			// default constructor 
-			core_vertex_buffer(std::vector<vertex_data>& vertices) : mvertices(vertices) {gen_buffer();}
+			core_vertex_buffer(std::vector<vertex_data>& vertices) : mvertices(vertices)
+			{
+				gen_buffer();
+			}
 			
 		public:
 			std::vector<vertex_data> mvertices;

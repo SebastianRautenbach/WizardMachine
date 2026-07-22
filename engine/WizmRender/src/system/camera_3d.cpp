@@ -1,5 +1,7 @@
 ﻿#include "system/camera_3d.h"
 
+#include <GLFW/glfw3.h>
+
 #include "math/matrix_transforms.h"
 
 namespace wizm
@@ -76,6 +78,16 @@ namespace wizm
         void camera_3d::add_movement(e_camera_move_direction movement)
         {
             m_active_move_states.insert(movement);
+        }
+
+        math::mat4<float> camera_3d::get_view_matrix() const
+        {
+            return m_view_matrix;
+        }
+
+        math::mat4<float> camera_3d::get_projection_matrix() const
+        {
+            return m_projection_matrix;
         }
     }
 }

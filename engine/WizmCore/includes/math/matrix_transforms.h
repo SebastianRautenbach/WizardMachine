@@ -10,17 +10,17 @@ namespace wizm
     namespace math
     {
         template<typename T>
-        constexpr mat4<T> translate(mat4<T> const& model, vec3<T> const& t);
+        inline constexpr mat4<T> translate(mat4<T> const& model, vec3<T> const& t);
         
         template<typename T>
-        constexpr mat4<T> rotate(mat4<T> const& model, T angle, vec3<T> const& axis);
+        inline constexpr mat4<T> rotate(mat4<T> const& model, T angle, vec3<T> const& axis);
         
         template<typename T>
-        constexpr mat4<T> scale(mat4<T> const& model, vec3<T> const& s);
+        inline constexpr mat4<T> scale(mat4<T> const& model, vec3<T> const& s);
         
-        mat4<float> perspective(const float fov, const float aspect, const float near, const float far);
+        inline mat4<float> perspective(const float fov, const float aspect, const float near, const float far);
         
-        mat4<float> lookAt(vec3<float> const& position, vec3<float> const& center, vec3<float> const& up);
+        inline mat4<float> lookAt(vec3<float> const& position, vec3<float> const& center, vec3<float> const& up);
     }
 }
 
