@@ -24,8 +24,8 @@ int main()
     auto _window = wizm::platform::create_window(desc);
     
     
-    //std::vector<wizm::renderer::vertex_data> vertexData = {{}};
-    //wizm::renderer::core_vertex_buffer temp{vertexData};
+    std::vector<wizm::renderer::vertex_data> vertexData = {{}};
+    wizm::renderer::core_vertex_buffer temp{vertexData};
     
     wizm::renderer::camera_settings camera_settings;
     wizm::renderer::camera_3d cam{camera_settings};

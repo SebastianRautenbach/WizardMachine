@@ -310,7 +310,7 @@ namespace filedata
 
 			for (auto i : this->variables)
 			{
-				int index_found_at = static_cast<int>(i.find(var_name);)
+				int index_found_at = static_cast<int>(i.find(var_name));
 				if (index_found_at != -1)
 				{
 					index_found_at += static_cast<int>(var_name.size());
