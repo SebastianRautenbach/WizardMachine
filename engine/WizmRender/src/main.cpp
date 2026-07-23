@@ -26,12 +26,15 @@ int main()
         [](wizm::core::core_event& event) {raise_event(event);}
     };
     
+    
     auto _window = wizm::platform::create_window(desc);
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         return -1;
     }
+    
+    glEnable(GL_DEPTH_TEST);
     
     std::vector<wizm::renderer::vertex_data> cube_vertices = {
     // ===== FRONT FACE (+Z) =====
@@ -92,8 +95,10 @@ int main()
        30, 31, 32, 33, 34, 35,   // Bottom
    };
     
-    wizm::renderer::core_gl_shader shader{"WizardMachine/engine/WizmRender/shaders/vrtx.glsl",
-        "WizardMachine/engine/WizmRender/shaders/frgmnt.glsl"};
+    wizm::renderer::core_gl_shader shader{
+        "WizardMachine/engine/WizmRender/shaders/vrtx.glsl",
+        "WizardMachine/engine/WizmRender/shaders/frgmnt.glsl"
+    };
     
     wizm::renderer::core_arr_vertex_buffer vba{cube_vertices, cube_indices};
     vba.bind_buffer();

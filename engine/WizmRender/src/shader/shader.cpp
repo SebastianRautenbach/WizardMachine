@@ -46,19 +46,17 @@ wizm::renderer::core_gl_shader::core_gl_shader(const char* compute_file_path)
     std::string CShaderFF = core::read_file_to_str(compute_file_path);
     const char* compute_shader_source = CShaderFF.c_str();
 
-    unsigned int comute_shader = glCreateShader(GL_COMPUTE_SHADER);
-    glShaderSource(comute_shader, 1, &compute_shader_source, NULL);
-    glCompileShader(comute_shader);
+    unsigned int compute_shader = glCreateShader(GL_COMPUTE_SHADER);
+    glShaderSource(compute_shader, 1, &compute_shader_source, NULL);
+    glCompileShader(compute_shader);
 
-    checkCompileErrors(comute_shader, "COMPUTE", compute_file_path);
+    checkCompileErrors(compute_shader, "COMPUTE", compute_file_path);
 
     shader_id = glCreateProgram();
-    glAttachShader(shader_id, comute_shader);
+    glAttachShader(shader_id, compute_shader);
     glLinkProgram(shader_id);
-
-
-
-    glDeleteShader(comute_shader);
+    
+    glDeleteShader(compute_shader);
 }
 
 void wizm::renderer::core_gl_shader::use_shader() const
