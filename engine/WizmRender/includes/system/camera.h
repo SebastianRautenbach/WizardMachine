@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <cstdint>
 
+#include "math/vec3.h"
+
 namespace wizm
 {
     namespace renderer

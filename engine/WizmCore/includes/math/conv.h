@@ -64,6 +64,10 @@ namespace wizm
         inline vec3<float> normalize(vec3<float> const& v)
         {
             float length = std::sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+            if (length==0.f)
+            {
+                return vec3<float>(0.f, 0.f, 0.f);
+            }
             return {v[0] / length, v[1] / length, v[2] / length};
         }
     }

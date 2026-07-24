@@ -1,5 +1,6 @@
 ﻿#include "system/camera_3d.h"
 
+#include <algorithm>
 #include <GLFW/glfw3.h>
 
 #include "math/matrix_transforms.h"
@@ -8,15 +9,24 @@ namespace wizm
 {
     namespace renderer
     {
-        camera_3d::camera_3d(const camera_settings& settings, math::vec3<float> position, math::vec3<float> rotation,
-            math::vec3<float> scale)
-                :camera(settings)
+        camera_3d::camera_3d(const camera_settings& settings, 
+            math::vec3<float> position, math::vec3<float> rotation,
+            math::vec3<float> scale, math::vec3<float> target)
+                :camera(settings), m_target(target)
         {
+            
+            m_position = position;
+            m_front = math::normalize(m_target - position);
+            m_right = math::normalize(math::cross(m_front, m_up));
+            m_rotation[1] = get_pitch();
+            m_rotation[0] = get_yaw();
         }
 
         void camera_3d::update(float delta_time)
         {
             float speed = m_settings.speed * delta_time;
+            
+            update_orientation();
             
             for(char x : m_active_move_states){
                 switch (x){
@@ -44,7 +54,6 @@ namespace wizm
                     m_position -= m_up * speed;
                     break;
                 }
-                m_active_move_states.erase(m_active_move_states.begin());
             }
         
             m_target = m_position + m_front;
@@ -78,6 +87,25 @@ namespace wizm
         void camera_3d::add_movement(e_camera_move_direction movement)
         {
             m_active_move_states.insert(movement);
+        }
+
+        void camera_3d::remove_movement(e_camera_move_direction movement)
+        {
+            m_active_move_states.erase(movement);
+        }
+
+        void camera_3d::process_mouse_movement(float x_offset, float y_offset, bool constrain_pitch)
+        {
+            x_offset *= m_settings.sensitivity;
+            y_offset *= m_settings.sensitivity;
+
+            m_rotation[0] += x_offset;
+            m_rotation[1] += y_offset;
+
+            if (constrain_pitch)
+            {
+                m_rotation[1] = std::clamp(m_rotation[1], -89.0f, 89.0f);
+            }
         }
 
         math::mat4<float> camera_3d::get_view_matrix() const

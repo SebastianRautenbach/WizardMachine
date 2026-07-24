@@ -24,9 +24,10 @@ namespace wizm
         public:
             explicit camera_3d(
                 const camera_settings& settings,
-                math::vec3<float> position = math::vec3<float>(0.0f),
-                math::vec3<float> rotation = math::vec3<float>(0.0f),
-                math::vec3<float> scale = math::vec3<float>(1.0f)
+                math::vec3<float> position = math::vec3<float>{0.0f},
+                math::vec3<float> rotation = math::vec3<float>{0.0f},
+                math::vec3<float> scale = math::vec3<float>{1.0f},
+                math::vec3<float> target = math::vec3<float>{0.f, 0.f, -1.f}
                 );
 
             void update(float delta_time) override;
@@ -44,6 +45,8 @@ namespace wizm
             
             void update_orientation();
             void add_movement(e_camera_move_direction movement);
+            void remove_movement(e_camera_move_direction movement);
+            void process_mouse_movement(float x_offset, float y_offset, bool constrain_pitch = true);
             
             math::mat4<float> get_view_matrix() const;
             math::mat4<float> get_projection_matrix() const;
@@ -53,6 +56,7 @@ namespace wizm
             math::vec3<float> m_target = math::vec3<float>(0.0f);
             math::mat4<float> m_view_matrix = math::mat4<float>::identity();
             math::mat4<float> m_projection_matrix = math::mat4<float>::identity();
+            math::vec3<float> target = math::vec3<float>(0.0f);
         };
     }
 }
